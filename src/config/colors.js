@@ -5,7 +5,7 @@ export const GRAY = '#f4f5f7'
 export const GRAY_ACTIVE = '#f4f5f7'
 
 export const SUCCESS = '#00875A'
-export const SUCCESS_ACTIVE = '006644'
+export const SUCCESS_ACTIVE = '#006644'
 
 export const DANGER = '#de350b'
 export const DANGER_ACTIVE = '#DE0C09'

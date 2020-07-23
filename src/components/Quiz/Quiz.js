@@ -7,6 +7,7 @@ import { ProgressBar } from '../ProgressBar'
 import { Title } from '../Title'
 import { Rating } from '../Rating'
 import { QuizStepOptions } from './QuizStepOptions'
+import { Score } from './Score'
 
 const QuizWrapper = styled.div`
   width: 100%;
@@ -18,6 +19,7 @@ const QuizWrapper = styled.div`
 
   .Quiz_footer {
     align-self: flex-end;
+    padding-top: 100px;
   }
 
   .Quiz_question-body {
@@ -54,6 +56,12 @@ const state = {
   options: ['Electric Company', 'Water Works', 'Chance', 'Community Chest']
 }
 
+const score = {
+  maxPossibleScore: 75,
+  minPossibleScore: 50,
+  currentScore: 67
+}
+
 export const Quiz = props => {
   const { className } = props
 
@@ -86,7 +94,13 @@ export const Quiz = props => {
         />
       </Container>
 
-      <Container className={'Quiz_footer'}>Footer</Container>
+      <Container className={'Quiz_footer'}>
+        <Score
+          maxPossibleScore={score.maxPossibleScore}
+          minPossibleScore={score.minPossibleScore}
+          currentScore={score.currentScore}
+        />
+      </Container>
     </QuizWrapper>
   )
 }
