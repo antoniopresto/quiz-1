@@ -43,20 +43,6 @@ const Container = styled.div`
   max-width: 100%;
   align-items: flex-start;
   justify-content: center;
-
-  &.QuizOptions_footer {
-    margin-top: 37px;
-    .result-text {
-      width: 100%;
-      display: block;
-      font-size: 30px;
-      text-align: center;
-    }
-
-    > .Button {
-      margin-top: 20px;
-    }
-  }
 `
 
 export const QuizStepOptions = props => {
@@ -65,11 +51,9 @@ export const QuizStepOptions = props => {
     correctAnswer,
     selectedAnswer,
     onSelect,
-    onClickNext
+    isAnswered,
+    isAnswerCorrect
   } = props
-
-  const isSubmitted = !!selectedAnswer
-  const isAnswerCorrect = correctAnswer && correctAnswer === selectedAnswer
 
   return (
     <QuizStepOptionsWrapper>
@@ -79,7 +63,7 @@ export const QuizStepOptions = props => {
             const { value } = option
             const isSelectedOption = selectedAnswer && selectedAnswer === value
 
-            let className = isSubmitted
+            let className = isAnswered
               ? classnames({
                   disabled: !isSelectedOption,
                   success: isSelectedOption && isAnswerCorrect,
@@ -92,7 +76,7 @@ export const QuizStepOptions = props => {
               <Button
                 onClick={e => {
                   e.preventDefault()
-                  if (isSubmitted) return
+                  if (isAnswered) return
                   onSelect(value)
                 }}
                 key={value}
@@ -103,23 +87,6 @@ export const QuizStepOptions = props => {
           })}
         </QuizOptionsWrapper>
       </Container>
-
-      {isSubmitted && (
-        <Container className={'QuizOptions_footer'}>
-          <span className={'result-text'}>
-            {isAnswerCorrect ? 'Correct!' : 'Sorry!'}
-          </span>
-
-          <Button
-            className={'medium'}
-            onClick={e => {
-              e.preventDefault()
-              onClickNext()
-            }}>
-            Next Question
-          </Button>
-        </Container>
-      )}
     </QuizStepOptionsWrapper>
   )
 }

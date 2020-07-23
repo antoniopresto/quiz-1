@@ -1,11 +1,11 @@
 import * as React from 'react'
 import styled from 'styled-components'
 import cx from 'classnames'
-import { colors } from '../../config/colors'
+import { colors } from '../config/colors'
 
 const scoreColors = {
   min: 'rgb(32 99 210)',
-  max: 'rgb(0 255 170)',
+  max: 'rgb(214 214 214)',
   current: 'rgb(0 193 195)'
 }
 

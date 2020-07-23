@@ -1,24 +1,22 @@
-// TODO
-export function parseScore(answers, total) {
-  let maxPossible = 100
+export function parseScore(answers, totalQuestions) {
+  let maxPossible = totalQuestions
   let minPossible = 0
   let current = 0
-  let correctCount = 0
-  let incorrectCount = 0
 
-  answers.forEach(function (answer) {
-    if (answer.isCorrect) {
-      ++correctCount
+  let answersCount = answers.length
+
+  answers.forEach(function ({ isCorrect }) {
+    if (isCorrect) {
+      ++current
+      ++minPossible
     } else {
-      ++incorrectCount
+      --maxPossible
     }
   })
 
-  console.log({ correctCount, incorrectCount })
-
   return {
-    maxPossible: 100,
-    minPossible: 0,
-    current: 0
+    maxPossible: Math.round((maxPossible * 100) / totalQuestions),
+    minPossible: Math.round((minPossible * 100) / totalQuestions),
+    current: Math.round((current * 100) / answersCount)
   }
 }

@@ -7,8 +7,9 @@ import { ProgressBar } from '../ProgressBar'
 import { Title } from '../Title'
 import { Rating } from '../Rating'
 import { QuizStepOptions } from './QuizStepOptions'
-import { Score } from './Score'
+import { Score } from '../Score'
 import { useQuizState } from './useQuizState'
+import { Button } from '../Button'
 
 const QuizWrapper = styled.div`
   width: 100%;
@@ -34,6 +35,26 @@ const QuizWrapper = styled.div`
   .Quiz_options-container {
     margin-top: 30px;
   }
+
+  .Quiz-actions-wrapper {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .QuizOptions_footer {
+    margin-top: 27px;
+
+    .result-text {
+      width: 100%;
+      display: block;
+      font-size: 30px;
+      text-align: center;
+    }
+
+    > .Button {
+      margin-top: 20px;
+    }
+  }
 `
 
 const Container = styled.div.attrs({ className: 'Quiz_Container' })`
@@ -47,11 +68,15 @@ const Container = styled.div.attrs({ className: 'Quiz_Container' })`
 export const Quiz = props => {
   const { className } = props
   const state = useQuizState()
-  const { currentQuestion, score, questionsCount, answerByIndex } = state
-
-  const currentAnswer = answerByIndex[currentQuestion.index]
-    ? answerByIndex[currentQuestion.index].value
-    : undefined
+  const {
+    score,
+    questionsCount,
+    hasMoreSteps,
+    isAnswered,
+    isAnswerCorrect,
+    currentAnswer,
+    currentQuestion
+  } = state
 
   return (
     <QuizWrapper className={classnames(className, 'Quiz Quiz_Wrapper')}>
@@ -74,10 +99,43 @@ export const Quiz = props => {
           options={currentQuestion.options}
           correctAnswer={currentQuestion.correctAnswer}
           selectedAnswer={currentAnswer}
+          isAnswered={isAnswered}
+          isAnswerCorrect={isAnswerCorrect}
           onSelect={state.selectAnswer}
-          onClickNext={state.onClickNext}
+          onClickNext={function () {
+            if (hasMoreSteps) {
+              state.onClickNext()
+            }
+          }}
         />
       </Container>
+
+      {isAnswered && (
+        <Container className={'QuizOptions_footer'}>
+          {hasMoreSteps ? (
+            <span className={'result-text'}>
+              {isAnswerCorrect ? 'Correct!' : 'Sorry!'}
+            </span>
+          ) : (
+            <span className={'result-text'}>
+              You final score is {score.current}%
+            </span>
+          )}
+        </Container>
+      )}
+
+      {hasMoreSteps && isAnswered && (
+        <Container className={'Quiz-actions-wrapper'}>
+          <Button
+            className={'medium'}
+            onClick={e => {
+              e.preventDefault()
+              state.onClickNext()
+            }}>
+            Next Question
+          </Button>
+        </Container>
+      )}
 
       <Container className={'Quiz_footer'}>
         <Score

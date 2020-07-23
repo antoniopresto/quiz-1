@@ -10,32 +10,43 @@ const ACTIONS = {
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.SET_STEP_VALUE: {
-      //
+      const isAnswerCorrect =
+        state.questions[state.stepIndex].correctAnswer === action.value
+
       const answerByIndex = {
         ...state.answerByIndex,
         [state.stepIndex]: {
           value: action.value,
-          isCorrect:
-            state.questions[state.stepIndex].correctAnswer === action.value
+          isCorrect: isAnswerCorrect
         }
       }
 
       return {
         ...state,
         answerByIndex,
+        isAnswered: true,
+        isAnswerCorrect,
+        currentAnswer: action.value,
         score: parseScore(Object.values(answerByIndex), state.questions.length)
       }
     }
 
     case ACTIONS.SUBMIT_STEP: {
-      const hasMoreSteps = state.stepIndex + 1 < state.questions.length
-      const newIndex = hasMoreSteps ? state.stepIndex + 1 : state.stepIndex
+      if (!state.answerByIndex[state.stepIndex]) return state
+
+      const maxIndex = state.questions.length - 1
+      const newIndex = state.stepIndex + 1
+      if (newIndex > maxIndex) return state
 
       return {
         ...state,
+        isAnswered: false,
+        isAnswerCorrect: undefined,
+        currentAnswer: undefined,
         stepIndex: newIndex,
         currentQuestion: state.questions[newIndex],
-        hasMoreSteps
+        hasMoreSteps: newIndex + 1 < maxIndex,
+        progress: Math.round(((newIndex + 1) * 100) / state.questions.length)
       }
     }
 
@@ -51,9 +62,9 @@ export function useQuizState() {
   const initialState = React.useMemo(() => {
     return {
       stepIndex: 0,
-      progress: 0,
+      progress: Math.round(100 / questions.length),
       questionsCount: questions.length,
-      hasMoreSteps: true,
+      hasMoreSteps: questions.length > 1,
       score: {
         maxPossible: 100,
         minPossible: 0,

@@ -12,6 +12,7 @@ const Progress = styled.div.attrs({ className: 'ProgressBar_Progress' })`
   height: 13px;
   background: ${colors.SUCCESS};
   min-width: 1px;
+  transition: width ease-out 500ms;
 `
 
 export const ProgressBar = props => {
