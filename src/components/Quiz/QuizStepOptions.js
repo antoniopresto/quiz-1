@@ -76,14 +76,15 @@ export const QuizStepOptions = props => {
       <Container className="QuizOptions_options">
         <QuizOptionsWrapper className="QuizOptions QuizOptions_OptionsWrapper">
           {options.map(option => {
-            const isSelectedOption = selectedAnswer && selectedAnswer === option
+            const { value } = option
+            const isSelectedOption = selectedAnswer && selectedAnswer === value
 
             let className = isSubmitted
               ? classnames({
                   disabled: !isSelectedOption,
                   success: isSelectedOption && isAnswerCorrect,
                   danger: isSelectedOption && !isAnswerCorrect,
-                  'light-success': option === correctAnswer && !isAnswerCorrect
+                  'light-success': value === correctAnswer && !isAnswerCorrect
                 })
               : ''
 
@@ -92,11 +93,11 @@ export const QuizStepOptions = props => {
                 onClick={e => {
                   e.preventDefault()
                   if (isSubmitted) return
-                  onSelect(option)
+                  onSelect(value)
                 }}
-                key={option}
+                key={value}
                 className={className}>
-                {option}
+                {option.label}
               </Button>
             )
           })}

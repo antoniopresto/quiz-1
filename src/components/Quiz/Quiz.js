@@ -8,6 +8,7 @@ import { Title } from '../Title'
 import { Rating } from '../Rating'
 import { QuizStepOptions } from './QuizStepOptions'
 import { Score } from './Score'
+import { useQuizState } from './useQuizState'
 
 const QuizWrapper = styled.div`
   width: 100%;
@@ -43,30 +44,14 @@ const Container = styled.div.attrs({ className: 'Quiz_Container' })`
   padding: 5px;
 `
 
-const state = {
-  progress: 10,
-  questionsCount: 20,
-  currentQuestion: 16,
-  difficultyRating: 3,
-  difficulty: 'medium',
-  category: 'Entertainment: Video Games',
-  text:
-    'At the start of a standard game of the Monopoly, if you throw a double six, which square would you land on?',
-  correctAnswer: 'Electric Company',
-  options: ['Electric Company', 'Water Works', 'Chance', 'Community Chest']
-}
-
-const score = {
-  maxPossibleScore: 75,
-  minPossibleScore: 50,
-  currentScore: 67
-}
-
 export const Quiz = props => {
   const { className } = props
+  const state = useQuizState()
+  const { currentQuestion, score, questionsCount, answerByIndex } = state
 
-  const [selectedOption, onSelectOption] = React.useState()
-  const onClickNext = () => {}
+  const currentAnswer = answerByIndex[currentQuestion.index]
+    ? answerByIndex[currentQuestion.index].value
+    : undefined
 
   return (
     <QuizWrapper className={classnames(className, 'Quiz Quiz_Wrapper')}>
@@ -74,31 +59,31 @@ export const Quiz = props => {
 
       <Container className={'Quiz_title-wrapper'}>
         <Title>
-          Question {state.currentQuestion} of {state.questionsCount}
-          <small>{state.category}</small>
+          Question {currentQuestion.count} of {questionsCount}
+          <small>{currentQuestion.category}</small>
         </Title>
-        <Rating rating={state.difficultyRating} />
+        <Rating rating={currentQuestion.difficultyRating} />
       </Container>
 
       <Container className={'Quiz_question-body'}>
-        <span>{state.text}</span>
+        <span>{currentQuestion.text}</span>
       </Container>
 
       <Container className={'Quiz_options-container'}>
         <QuizStepOptions
-          options={state.options}
-          correctAnswer={state.correctAnswer}
-          selectedAnswer={selectedOption}
-          onSelect={onSelectOption}
-          onClickNext={onClickNext}
+          options={currentQuestion.options}
+          correctAnswer={currentQuestion.correctAnswer}
+          selectedAnswer={currentAnswer}
+          onSelect={state.selectAnswer}
+          onClickNext={state.onClickNext}
         />
       </Container>
 
       <Container className={'Quiz_footer'}>
         <Score
-          maxPossibleScore={score.maxPossibleScore}
-          minPossibleScore={score.minPossibleScore}
-          currentScore={score.currentScore}
+          maxPossibleScore={score.maxPossible}
+          minPossibleScore={score.minPossible}
+          currentScore={score.current}
         />
       </Container>
     </QuizWrapper>
