@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import cx from 'classnames'
+import classnames from 'classnames'
 
 // components
 import { ProgressBar } from '../ProgressBar'
@@ -55,10 +55,12 @@ const state = {
 }
 
 export const Quiz = props => {
-  const { className } = props
+  const { className } = props;
+
+  const [selectedOption, onSelectOption] = React.useState();
 
   return (
-    <QuizWrapper className={cx(className, 'Quiz Quiz_Wrapper')}>
+    <QuizWrapper className={classnames(className, 'Quiz Quiz_Wrapper')}>
       <ProgressBar progress={state.progress} />
 
       <Container className={'Quiz_title-wrapper'}>
@@ -77,6 +79,8 @@ export const Quiz = props => {
         <QuizOptions
           options={state.options}
           correctAnswer={state.correctAnswer}
+          selectedAnswer={selectedOption}
+          onSelect={onSelectOption}
         />
       </Container>
 

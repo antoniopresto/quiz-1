@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import cx from 'classnames'
+import classnames from 'classnames'
 import { colors } from '../config/colors'
 
 const ButtonWrapper = styled.a.attrs({ role: 'button' })`
@@ -11,7 +11,6 @@ const ButtonWrapper = styled.a.attrs({ role: 'button' })`
   padding: 5px 15px;
   border-radius: 5px;
   cursor: pointer;
-  box-shadow: inset 0 0 0 1px;
   user-select: none;
   opacity: 0.9;
 
@@ -34,14 +33,22 @@ const ButtonWrapper = styled.a.attrs({ role: 'button' })`
     }
   }
 
-  &.light {
-    background-color: ${colors.GRAY};
-    color: ${colors.TEXT_RGBA};
-  }
-
   &.danger {
     background-color: ${colors.DANGER};
-    box-shadow: inset 0 0 0 1px ${colors.DANGER_ACTIVE};
+    box-shadow: none;
+    color: white;
+  }
+
+  &.success {
+    background-color: ${colors.SUCCESS};
+    color: white;
+  }
+  
+  &&.light-success {
+    background-color: white;
+    color: ${colors.SUCCESS};
+    box-shadow: inset 0 0 0 1px;
+    opacity: 1;
   }
 
   &:active {
@@ -53,6 +60,13 @@ const ButtonWrapper = styled.a.attrs({ role: 'button' })`
     pointer-events: none;
     opacity: 0.5;
     background-color: ${colors.GRAY};
+    box-shadow: inset 0 0 0 1px;
+  }
+
+  &.light {
+    background-color: ${colors.GRAY}!important;
+    color: ${colors.TEXT_RGBA};
+    box-shadow: inset 0 0 0 1px;
   }
 `
 
@@ -63,7 +77,7 @@ export const Button = props => {
     <ButtonWrapper
       tabIndex={0}
       {...htmlAnchorProps}
-      className={cx(className, 'Button Button_Wrapper')}>
+      className={classnames(className, 'Button Button_Wrapper')}>
       {props.children}
     </ButtonWrapper>
   )

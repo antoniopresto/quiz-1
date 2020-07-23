@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import cx from 'classnames'
+import classnames from 'classnames'
 import { Button } from '../Button'
 
 const QuizOptionsWrapper = styled.div`
@@ -27,42 +27,38 @@ const QuizOptionsWrapper = styled.div`
 `
 
 export const QuizOptions = props => {
-  const {
-    className,
-    options,
-    correctAnswer,
-    selectedAnswer: submittedAnswer,
-    onSubmit
-  } = props
-  const [selectedAnswer, setSelectedAnswer] = React.useState(submittedAnswer)
+  const { className, options, correctAnswer, selectedAnswer, onSelect } = props
 
-  React.useEffect(() => {
-    if (submittedAnswer && submittedAnswer !== selectedAnswer) {
-      setSelectedAnswer(submittedAnswer)
-    }
-  }, [submittedAnswer])
-
-  const isAnswerCorrect = correctAnswer && correctAnswer === submittedAnswer
+  const isSubmitted = !!selectedAnswer
+  const isAnswerCorrect = correctAnswer && correctAnswer === selectedAnswer
 
   return (
     <QuizOptionsWrapper
-      className={cx(className, 'QuizOptions QuizOptions_OptionsWrapper')}>
+      className={classnames(
+        className,
+        'QuizOptions QuizOptions_OptionsWrapper'
+      )}>
       {options.map(option => {
-        const isOptionSelected = setSelectedAnswer && option === selectedAnswer
-        const isSubmittedOption = submittedAnswer && submittedAnswer === option
+        const isSelectedOption = selectedAnswer && selectedAnswer === option
+
+        let className = isSubmitted
+          ? classnames({
+              disabled: !isSelectedOption,
+              success: isSelectedOption && isAnswerCorrect,
+              danger: isSelectedOption && !isAnswerCorrect,
+              'light-success': option === correctAnswer && !isAnswerCorrect
+            })
+          : 'light'
 
         return (
           <Button
             onClick={e => {
               e.preventDefault()
-              setSelectedAnswer(option)
+              if (isSubmitted) return
+              onSelect(option)
             }}
             key={option}
-            className={cx({
-              light: !isOptionSelected,
-              primary: isOptionSelected,
-              danger: !isAnswerCorrect && isSubmittedOption
-            })}>
+            className={className}>
             {option}
           </Button>
         )
