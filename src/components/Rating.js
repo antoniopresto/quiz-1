@@ -6,12 +6,14 @@ const RatingWrapper = styled.div`
   width: 100%;
 
   .star {
+    font-size: 10px;
+
     opacity: 0.4;
     &.active {
       opacity: 1;
     }
 
-    margin-right: 5px;
+    margin-right: 2px;
     &:last-child {
       margin-right: 0;
     }
