@@ -5,6 +5,13 @@ import cx from 'classnames'
 const TitleWrapper = styled.div`
   width: 100%;
   font-size: 27px;
+  
+  > small {
+    display: block;
+    width: 100%;
+    font-size: 42.5%;
+    margin: 0;
+  }
 `
 
 export const Title = props => {
