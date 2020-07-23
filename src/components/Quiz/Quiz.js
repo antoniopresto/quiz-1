@@ -6,6 +6,7 @@ import cx from 'classnames'
 import { ProgressBar } from '../ProgressBar'
 import { Title } from '../Title'
 import { Rating } from '../Rating'
+import { QuizOptions } from './QuizOptions'
 
 const QuizWrapper = styled.div`
   width: 100%;
@@ -26,6 +27,10 @@ const QuizWrapper = styled.div`
       font-size: 17.7px;
     }
   }
+
+  .Quiz_options-container {
+    margin-top: 30px;
+  }
 `
 
 const Container = styled.div.attrs({ className: 'Quiz_Container' })`
@@ -44,7 +49,9 @@ const state = {
   difficulty: 'medium',
   category: 'Entertainment: Video Games',
   text:
-    'At the start of a standard game of the Monopoly, if you throw a double six, which square would you land on?'
+    'At the start of a standard game of the Monopoly, if you throw a double six, which square would you land on?',
+  correctAnswer: 'Electric Company',
+  options: ['Electric Company', 'Water Works', 'Chance', 'Community Chest']
 }
 
 export const Quiz = props => {
@@ -64,6 +71,13 @@ export const Quiz = props => {
 
       <Container className={'Quiz_question-body'}>
         <span>{state.text}</span>
+      </Container>
+
+      <Container className={'Quiz_options-container'}>
+        <QuizOptions
+          options={state.options}
+          correctAnswer={state.correctAnswer}
+        />
       </Container>
 
       <Container className={'Quiz_footer'}>Footer</Container>
