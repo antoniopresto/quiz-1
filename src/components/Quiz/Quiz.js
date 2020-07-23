@@ -6,7 +6,7 @@ import classnames from 'classnames'
 import { ProgressBar } from '../ProgressBar'
 import { Title } from '../Title'
 import { Rating } from '../Rating'
-import { QuizOptions } from './QuizOptions'
+import { QuizStepOptions } from './QuizStepOptions'
 
 const QuizWrapper = styled.div`
   width: 100%;
@@ -55,9 +55,10 @@ const state = {
 }
 
 export const Quiz = props => {
-  const { className } = props;
+  const { className } = props
 
-  const [selectedOption, onSelectOption] = React.useState();
+  const [selectedOption, onSelectOption] = React.useState()
+  const onClickNext = () => {}
 
   return (
     <QuizWrapper className={classnames(className, 'Quiz Quiz_Wrapper')}>
@@ -76,11 +77,12 @@ export const Quiz = props => {
       </Container>
 
       <Container className={'Quiz_options-container'}>
-        <QuizOptions
+        <QuizStepOptions
           options={state.options}
           correctAnswer={state.correctAnswer}
           selectedAnswer={selectedOption}
           onSelect={onSelectOption}
+          onClickNext={onClickNext}
         />
       </Container>
 
