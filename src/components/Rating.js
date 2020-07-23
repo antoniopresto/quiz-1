@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import cx from 'classnames'
+import classnames from 'classnames'
 
 const RatingWrapper = styled.div`
   width: 100%;
@@ -20,7 +20,7 @@ const RatingWrapper = styled.div`
   }
 `
 
-const Star = ({ active }) => <span className={cx('star', { active })}>★</span>
+const Star = ({ active }) => <span className={classnames('star', { active })}>★</span>
 
 export const Rating = props => {
   const { className, rating = 0 } = props
@@ -36,7 +36,7 @@ export const Rating = props => {
   }, [rating])
 
   return (
-    <RatingWrapper className={cx(className, 'Rating Rating_Wrapper')}>
+    <RatingWrapper className={classnames(className, 'Rating Rating_Wrapper')}>
       {stars}
     </RatingWrapper>
   )

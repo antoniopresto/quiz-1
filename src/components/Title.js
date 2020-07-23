@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import cx from 'classnames'
+import classnames from 'classnames'
 
 const TitleWrapper = styled.div.attrs({ role: 'title' })`
   width: 100%;
@@ -18,7 +18,7 @@ export const Title = props => {
   const { className } = props
 
   return (
-    <TitleWrapper className={cx(className, 'Title Title_Wrapper')}>
+    <TitleWrapper className={classnames(className, 'Title Title_Wrapper')}>
       {props.children}
     </TitleWrapper>
   )

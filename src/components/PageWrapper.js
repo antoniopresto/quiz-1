@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import cx from 'classnames'
+import classnames from 'classnames'
 import { colors } from '../config/colors'
 
 const PageWrapperWrapper = styled.div`
@@ -28,7 +28,7 @@ export const PageWrapper = props => {
   const { className } = props
 
   return (
-    <PageWrapperWrapper className={cx(className, 'PageWrapper')}>
+    <PageWrapperWrapper className={classnames(className, 'PageWrapper')}>
       <PageContainer className={'PageContainer PageWrapper_PageContainer'}>
         {props.children}
       </PageContainer>

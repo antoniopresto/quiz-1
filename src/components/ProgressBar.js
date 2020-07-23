@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styled from 'styled-components'
-import cx from 'classnames'
+import classnames from 'classnames'
 import { colors } from '../config/colors'
 
 const ProgressBarWrapper = styled.div`
@@ -19,7 +19,7 @@ export const ProgressBar = props => {
 
   return (
     <ProgressBarWrapper
-      className={cx(className, 'ProgressBar ProgressBar_Wrapper')}>
+      className={classnames(className, 'ProgressBar ProgressBar_Wrapper')}>
       <Progress style={{ width: `${progress}%` }} />
     </ProgressBarWrapper>
   )
