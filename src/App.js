@@ -1,11 +1,13 @@
 import React from 'react'
+
+// components
 import { PageWrapper } from './components/PageWrapper'
-import { ProgressBar } from './components/ProgressBar'
+import { Quiz } from './components/Quiz/Quiz'
 
 function App() {
   return (
     <PageWrapper>
-      <ProgressBar progress={10} />
+      <Quiz />
     </PageWrapper>
   )
 }
