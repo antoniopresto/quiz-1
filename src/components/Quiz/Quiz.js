@@ -13,7 +13,12 @@ import { Button } from '../Button'
 
 const QuizWrapper = styled.div`
   width: 100%;
-  min-height: 80vh;
+  min-height: 100vh;
+  position: relative;
+
+  @media screen and (min-width: 1024px) {
+    min-height: 80vh;
+  }
 
   .Quiz_title-wrapper {
     margin-top: 26px;
@@ -21,7 +26,10 @@ const QuizWrapper = styled.div`
 
   .Quiz_footer {
     align-self: flex-end;
-    padding-top: 100px;
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
   }
 
   .Quiz_question-body {

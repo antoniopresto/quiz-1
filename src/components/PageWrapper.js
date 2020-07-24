@@ -22,6 +22,7 @@ export const PageContainer = styled.div`
   max-width: 560px;
   padding: 5px;
   background-color: white;
+  box-shadow: 0 14px 28px rgb(0 0 0 / 5%), 0 10px 10px rgb(0 0 0 / 5%);
 `
 
 export const PageWrapper = props => {

@@ -5,7 +5,7 @@ import { colors } from '../config/colors'
 
 const scoreColors = {
   min: 'rgb(32 99 210)',
-  max: 'rgb(214 214 214)',
+  max: 'rgb(230 230 230)',
   current: 'rgb(0 193 195)'
 }
 

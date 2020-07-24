@@ -10,7 +10,7 @@ const ButtonWrapper = styled.a.attrs({ role: 'button' })`
   color: ${colors.PRIMARY};
   box-shadow: inset 0 0 0 1px;
 
-  padding: 5px 15px;
+  padding: 6px 15px;
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
