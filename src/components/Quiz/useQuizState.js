@@ -45,7 +45,7 @@ function reducer(state, action) {
         currentAnswer: undefined,
         stepIndex: newIndex,
         currentQuestion: state.questions[newIndex],
-        hasMoreSteps: newIndex + 1 < maxIndex,
+        hasMoreSteps: newIndex < maxIndex,
         progress: Math.round(((newIndex + 1) * 100) / state.questions.length)
       }
     }
@@ -90,6 +90,8 @@ export function useQuizState() {
       value
     })
   }
+
+  console.log(state)
 
   return {
     ...state,

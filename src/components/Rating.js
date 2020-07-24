@@ -28,7 +28,7 @@ export const Rating = props => {
   const stars = React.useMemo(() => {
     const result = []
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 3; i++) {
       result.push(<Star active={i < rating} key={i} />)
     }
 

@@ -24,9 +24,13 @@ const QuizOptionsWrapper = styled.div`
   align-items: flex-start;
 
   .Button {
-    width: 36%;
-    max-width: 40%;
+    width: 50%;
+    max-width: calc(50% - 5px);
     font-size: 16px;
+
+    @media screen and (min-width: 1024px) {
+      max-width: calc(50% - 25px);
+    }
 
     &:nth-child(3),
     &:nth-child(4) {
